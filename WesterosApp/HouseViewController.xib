@@ -22,26 +22,41 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DYq-Qq-YBw">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DYq-Qq-YBw">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Le-id-Ac4">
-                    <rect key="frame" x="16" y="81" width="343" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Le-id-Ac4">
+                    <rect key="frame" x="20" y="80" width="335" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Dak-xD-5fO"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9l9-Xc-zvv">
-                    <rect key="frame" x="16" y="619" width="343" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9l9-Xc-zvv">
+                    <rect key="frame" x="20" y="617" width="335" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="gP7-FO-s2a"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                     <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="5Le-id-Ac4" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="02e-61-ZD7"/>
+                <constraint firstAttribute="bottom" secondItem="9l9-Xc-zvv" secondAttribute="bottom" constant="20" id="2g5-ns-3zM"/>
+                <constraint firstAttribute="bottom" secondItem="DYq-Qq-YBw" secondAttribute="bottom" id="4Gk-Ce-WoY"/>
+                <constraint firstItem="DYq-Qq-YBw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FUI-gd-Qf9"/>
+                <constraint firstAttribute="trailing" secondItem="9l9-Xc-zvv" secondAttribute="trailing" constant="20" id="Fkp-oz-6CM"/>
+                <constraint firstItem="9l9-Xc-zvv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="Ygc-ep-7Q6"/>
+                <constraint firstAttribute="trailing" secondItem="DYq-Qq-YBw" secondAttribute="trailing" id="fwk-6g-8IU"/>
+                <constraint firstItem="DYq-Qq-YBw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="h7t-Zk-qVS"/>
+                <constraint firstItem="5Le-id-Ac4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="80" id="ma9-tK-egW"/>
+                <constraint firstAttribute="trailing" secondItem="5Le-id-Ac4" secondAttribute="trailing" constant="20" id="pbk-gj-oIv"/>
+            </constraints>
             <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>

@@ -21,18 +21,24 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vjm-d0-bra">
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vjm-d0-bra">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </webView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-4B-IxD">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="WPa-4B-IxD">
                     <rect key="frame" x="169" y="315" width="37" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="color" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="WPa-4B-IxD" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="3Cp-Rr-gP6"/>
+                <constraint firstItem="WPa-4B-IxD" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Fdu-t0-erO"/>
+                <constraint firstItem="Vjm-d0-bra" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="NGJ-v2-irP"/>
+                <constraint firstAttribute="trailing" secondItem="Vjm-d0-bra" secondAttribute="trailing" id="fgJ-Bm-TRm"/>
+                <constraint firstItem="Vjm-d0-bra" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iq2-y8-PXM"/>
+                <constraint firstAttribute="bottom" secondItem="Vjm-d0-bra" secondAttribute="bottom" id="po8-25-gaG"/>
+            </constraints>
             <point key="canvasLocation" x="34.5" y="53.5"/>
         </view>
     </objects>

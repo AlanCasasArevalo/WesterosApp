@@ -8,15 +8,16 @@
 
 import UIKit
 
-class HouseViewController: UIViewController {
-
+class HouseViewController: UIViewController,UISplitViewControllerDelegate,HousesTableViewControllerDelegate  {
+    
+    
     @IBOutlet weak var houseNameView: UILabel!
     
     @IBOutlet weak var houseWordView: UILabel!
     
     @IBOutlet weak var sigilImageView: UIImageView!
     
-    let modelHouse:House
+    var modelHouse:House
     
     init(modelHouse: House) {
 
@@ -25,7 +26,7 @@ class HouseViewController: UIViewController {
         
         //Siempre tienen que estar inicializadas antes de hacer nada con las vistas, y mejor no usar nada de vistas en un init
         title = modelHouse.name
-        
+                
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -39,16 +40,12 @@ class HouseViewController: UIViewController {
         sigilImageView.image = modelHouse.sigil.image
         houseWordView.text = modelHouse.words
         
-//        UITabBar.appearance().backgroundColor = UIColor.black
-//        houseNameView.textColor = UIColor.lightGray
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupUI()
         syncViewWithModel()
-        
     }
     
     func setupUI(){
@@ -60,7 +57,13 @@ class HouseViewController: UIViewController {
         
         let members = UIBarButtonItem(title: "Personajes", style: .plain, target: self, action: #selector(displayMembers))
         
-        navigationItem.rightBarButtonItems = [wiki,members]
+        if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.primaryHidden{
+            navigationItem.rightBarButtonItems = [(self.splitViewController?.displayModeButtonItem)!, wiki, members]
+        }else if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.allVisible{
+            navigationItem.rightBarButtonItems = [(self.splitViewController?.displayModeButtonItem)!, wiki, members]
+        }else{
+            navigationItem.rightBarButtonItems = [wiki,members]
+        }
         
     }
 
@@ -81,7 +84,25 @@ class HouseViewController: UIViewController {
         
     }
 
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+        
+        if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.primaryHidden{
+            self.navigationItem.rightBarButtonItem = self.splitViewController?.displayModeButtonItem
+        }
+        
+    }
+    
+    func housesTableViewController(housesVC: HousesTableViewController, aHouseModel: House) {
+        self.modelHouse = aHouseModel
+        self.title = aHouseModel.name
+        
+        self.syncViewWithModel()
+    }
+    
 }
+
+
+
 
 
 

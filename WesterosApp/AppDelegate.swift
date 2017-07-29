@@ -14,28 +14,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.cyan
         self.window!.makeKeyAndVisible()
   
         //Modelo
-        let houses = Repository.local.houses
+        var houses = Repository.local.houses
 
         //Creamos los controladores
-        let tableDataSource = DataSource.houseDataSource(model: houses)
-        let navigationDelegate = UINavigationController()
-        let tableDelegate = Delegates.housesDelegate(model: houses, navigatorController: navigationDelegate)
+        let navigationController = UINavigationController()
+        
+        let housesVC = HousesTableViewController(houseModel: houses)
+        navigationController.pushViewController(housesVC, animated: true)
         
         
-//        let housesVC = ArrayTableViewController(dataSource: tableDataSource, delegate: tableDelegate, title: "Westeros", style: .plain)
-        let housesVC = ArrayTableViewController(dataSource: tableDataSource, delegate: tableDelegate, title: "Westeros", style: .plain)
         
-        navigationDelegate.pushViewController(housesVC, animated: true)
+        /***********************UISplitViewController***********************************/
+        
+        let houseVC = HouseViewController(modelHouse: houses[2])
+        let houseTableVC = HousesTableViewController(houseModel: houses)
+        
+        let houseNavVC = UINavigationController(rootViewController: houseVC)
+        let housesTabNavVC = UINavigationController(rootViewController: houseTableVC)
+        
+        let splitVC = UISplitViewController()
+            splitVC.viewControllers = [housesTabNavVC,houseNavVC]
+        
+        splitVC.delegate = houseVC
+        houseTableVC.tableDelegate = houseVC as? HousesTableViewControllerDelegate
+        
+        /***********************UISplitViewController***********************************/
         
         //Hacemos al tab controlador principal.
-        window?.rootViewController = navigationDelegate
+//        window?.rootViewController = navigationController
+        window?.rootViewController = splitVC
         
         return true
     }

@@ -8,10 +8,18 @@
 
 import UIKit
 
+
+protocol HousesTableViewControllerDelegate {
+    func housesTableViewController(housesVC: HousesTableViewController, aHouseModel: House)
+    
+}
+
 class HousesTableViewController: UITableViewController {
     
+    var tableDelegate:HousesTableViewControllerDelegate?
+    
     let cellID = "HouseCellIdentifier"
-    let houseModel : [House]
+    var houseModel : [House]
     
     init(houseModel:[House]) {
         self.houseModel = houseModel
@@ -25,7 +33,7 @@ class HousesTableViewController: UITableViewController {
     
     //MARK: -TABLE VIEW DATASOURCE
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+//         #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -59,12 +67,15 @@ class HousesTableViewController: UITableViewController {
         let cellForRow = houseModel[indexPath.row]
         
         //Mostramos la casa
-        let houseVC = HouseViewController(modelHouse: cellForRow)
-        navigationController?.pushViewController(houseVC, animated: true)
-        
-//        optional public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-        
+//        let houseVC = HouseViewController(modelHouse: cellForRow)
+//        navigationController?.pushViewController(houseVC, animated: true)
+//
+        tableDelegate?.housesTableViewController(housesVC: self, aHouseModel: cellForRow)
+    
     }
+    
+
+
     
 }
 
