@@ -50,15 +50,33 @@ class RepositorioTests: XCTestCase {
         XCTAssertEqual(repositoryHouse, repositoryHouse.sorted())
     }
     
-    
-    
-    
     func testHouseFiltering(){
   
         let filtered = Repository.local.houseFiltered(filteredBy: {$0.count == 3 })
         XCTAssertEqual(filtered.count, 3)
 
     }
+    
+    func testReleaseDate(){
+        
+        let dateComponentReleaseSeason1 = DateComponents(calendar: .current, year: 2011, month: 04, day: 11)
+        let releaseSeason1 = dateComponentReleaseSeason1.date!
+
+        let season1 = Season(seasonName: "Temporada 1", realeaseDate: releaseSeason1)
+        
+        let episode1Season1 = Episode(title: "Se acerca el invierno", realeaseDate: releaseSeason1, season: season1)
+        let episode2Season1 = Episode(title: "El camino real", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
+
+        season1.addEpisode(newEpisode: episode1Season1)
+        season1.addEpisode(newEpisode: episode2Season1)
+
+        dump(season1.seasonName)
+
+        
+        
+    }
+    
+    
 }
 
 

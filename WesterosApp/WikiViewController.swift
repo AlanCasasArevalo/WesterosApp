@@ -18,7 +18,7 @@ class WikiViewController: UIViewController {
     init(model: House){
         self._model = model
         super.init(nibName: nil, bundle: nil)
-        title = _model.name
+        title = "Wiki de GOT"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,18 +33,22 @@ class WikiViewController: UIViewController {
         center.addObserver(self, selector: #selector(houseDidChange) , name: NSNotification.Name(rawValue: notificationName), object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self)
+        
+    }
+    
     @objc func houseDidChange(notification: Notification) {
         
         let notificationDict = notification.userInfo
-        
-        dump( notificationDict![houseKey])
         
         if let newHouse = notificationDict![houseKey] as? House {
             syncViewWithModel(houseURL: newHouse.wikiURL)
         }
 
     }
-    
     
 }
 

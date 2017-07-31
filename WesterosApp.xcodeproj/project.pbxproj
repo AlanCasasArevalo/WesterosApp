@@ -10,6 +10,7 @@
 		5125E5F61F155DB600EC7158 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125E5F51F155DB600EC7158 /* UIKitExtensions.swift */; };
 		5125E5F81F15608C00EC7158 /* RepositoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125E5F71F15608C00EC7158 /* RepositoryTest.swift */; };
 		5125E5FA1F15622E00EC7158 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125E5F91F15622E00EC7158 /* Repository.swift */; };
+		512999F81F2F950800FC15A2 /* ReleaseSeason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512999F71F2F950800FC15A2 /* ReleaseSeason.swift */; };
 		513179021F14128E00058456 /* HouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 513179001F14128E00058456 /* HouseViewController.swift */; };
 		513179031F14128E00058456 /* HouseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 513179011F14128E00058456 /* HouseViewController.xib */; };
 		515201E71F2B895800B2B4E5 /* Season.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515201E61F2B895800B2B4E5 /* Season.swift */; };
@@ -47,6 +48,7 @@
 		5125E5F51F155DB600EC7158 /* UIKitExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		5125E5F71F15608C00EC7158 /* RepositoryTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryTest.swift; sourceTree = "<group>"; };
 		5125E5F91F15622E00EC7158 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		512999F71F2F950800FC15A2 /* ReleaseSeason.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReleaseSeason.swift; sourceTree = "<group>"; };
 		513179001F14128E00058456 /* HouseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HouseViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		513179011F14128E00058456 /* HouseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HouseViewController.xib; sourceTree = "<group>"; };
 		515201E61F2B895800B2B4E5 /* Season.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Season.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				5165E43B1F1047D3001ECFA2 /* Person.swift */,
 				5125E5F91F15622E00EC7158 /* Repository.swift */,
 				515201E61F2B895800B2B4E5 /* Season.swift */,
+				512999F71F2F950800FC15A2 /* ReleaseSeason.swift */,
 				515201E81F2B8B0B00B2B4E5 /* Episode.swift */,
 			);
 			name = Models;
@@ -301,6 +304,7 @@
 				515201E91F2B8B0B00B2B4E5 /* Episode.swift in Sources */,
 				513179021F14128E00058456 /* HouseViewController.swift in Sources */,
 				5125E5F61F155DB600EC7158 /* UIKitExtensions.swift in Sources */,
+				512999F81F2F950800FC15A2 /* ReleaseSeason.swift in Sources */,
 				5154D2D51F1E1FA000DFF868 /* WikiViewController.swift in Sources */,
 				5125E5FA1F15622E00EC7158 /* Repository.swift in Sources */,
 				51F51B261F1E7F0C000D8856 /* PersonTableViewController.swift in Sources */,

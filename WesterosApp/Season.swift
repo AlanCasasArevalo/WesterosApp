@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias Episodes = Set<Episode>
+typealias Episodes =  Set<Episode>
 
 final class Season {
     
@@ -91,9 +91,6 @@ extension Season: Comparable{
         return lhs.proxy < rhs.proxy
     }
 }
-
-
-
 
 
 

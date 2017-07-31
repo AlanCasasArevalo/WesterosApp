@@ -11,15 +11,21 @@ import XCTest
 
 class SeasonTest: XCTestCase {
     
-    var fecha:Date!
+    var dateSeason1:Date!
     var season1:Season!
 
+    var dateSeason2:Date!
+    var season2:Season!
+    
+    
     override func setUp() {
         super.setUp()
         
-        fecha = Date(timeIntervalSinceNow: 0)
-        season1 = Season(seasonName: "Temporada1", realeaseDate: fecha)
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        dateSeason1 = Date(timeIntervalSinceNow: 0)
+        season1 = Season(seasonName: "Temporada1", realeaseDate: dateSeason1)
+        
+        dateSeason2 = Date(timeIntervalSinceNow: 0)
+        season2 = Season(seasonName: "Temporada2", realeaseDate: dateSeason1)
     }
     
     override func tearDown() {
@@ -34,12 +40,18 @@ class SeasonTest: XCTestCase {
     }
     
     func testAddEpisodeToSeason(){
-        let pilote = Episode(title: "piloto", realeaseDate: fecha)
+        let pilote1 = Episode(title: "piloto", realeaseDate: dateSeason1, season: season1)
         
-        season1.addEpisode(newEpisode: pilote)
+        
+        season1.addEpisode(newEpisode: pilote1)
+        
+        let pilote2 = Episode(title: "piloto2", realeaseDate: dateSeason2, season: season2)
         
         XCTAssertEqual(season1.count, 1)
+
+        season2.addEpisode(newEpisode: pilote2)
         
+        XCTAssertEqual(season2.count, 1)
     }
     
     func testSeasonEquality(){
@@ -48,6 +60,18 @@ class SeasonTest: XCTestCase {
         
     }
 
+    func testSeasonHashable(){
+        XCTAssertNotNil(season1.hashValue)
+    }
+    
+    func testSeasonComparable(){
+        
+        XCTAssertLessThan(season1, season2)
+        XCTAssertGreaterThan(season2, season1)
+        
+    }
+    
+    
 }
 
 

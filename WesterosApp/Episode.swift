@@ -14,10 +14,11 @@ final class Episode {
     
     var title: String
     var releaseDate : Date
+    var season: Season
     
-    init ( title: String, realeaseDate: Date ){
+    init ( title: String, realeaseDate: Date, season:Season ){
         
-        (self.title, self.releaseDate ) = (title , realeaseDate)
+        (self.title, self.releaseDate, self.season ) = (title , realeaseDate, season)
         
     }
     
@@ -43,15 +44,18 @@ extension Episode: Comparable {
     }
 }
 
-
 extension Episode: Equatable {
     static func ==(lhs: Episode, rhs: Episode) -> Bool {
         return lhs.proxy == rhs.proxy
     }
 }
 
+extension Episode: CustomStringConvertible{
+    var description: String {
+        return "\(title) \(releaseDate)"
+    }
 
-
+}
 
 
 
