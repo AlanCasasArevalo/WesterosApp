@@ -8,10 +8,11 @@
 
 import UIKit
 
+let notificationName = "newHouse"
+let houseKey = "house"
 
 protocol HousesTableViewControllerDelegate {
     func housesTableViewController(housesVC: HousesTableViewController, aHouseModel: House)
-    
 }
 
 class HousesTableViewController: UITableViewController {
@@ -71,7 +72,15 @@ class HousesTableViewController: UITableViewController {
 //        navigationController?.pushViewController(houseVC, animated: true)
 //
         tableDelegate?.housesTableViewController(housesVC: self, aHouseModel: cellForRow)
-    
+        
+        let notification = Notification(name: Notification.Name(rawValue: notificationName),
+                                        object: self,
+                                        userInfo: [houseKey: cellForRow])
+        
+//        dump(cellForRow)
+        
+        NotificationCenter.default.post(notification)
+        
     }
     
 

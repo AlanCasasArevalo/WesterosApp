@@ -7,11 +7,18 @@
 //
 
 import XCTest
+@testable import WesterosApp
 
 class SeasonTest: XCTestCase {
     
+    var fecha:Date!
+    var season1:Season!
+
     override func setUp() {
         super.setUp()
+        
+        fecha = Date(timeIntervalSinceNow: 0)
+        season1 = Season(seasonName: "Temporada1", realeaseDate: fecha)
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -20,16 +27,57 @@ class SeasonTest: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSeasonExistence(){
+
+        XCTAssertNotNil(season1)
+        
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testAddEpisodeToSeason(){
+        let pilote = Episode(title: "piloto", realeaseDate: fecha)
+        
+        season1.addEpisode(newEpisode: pilote)
+        
+        XCTAssertEqual(season1.count, 1)
+        
     }
     
+    func testSeasonEquality(){
+        
+        XCTAssertEqual(season1, season1)
+        
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

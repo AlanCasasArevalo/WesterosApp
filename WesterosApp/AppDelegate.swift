@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         /***********************UISplitViewController***********************************/
         
-        let houseVC = HouseViewController(modelHouse: houses[2])
+        let houseVC = HouseViewController(modelHouse: houses[0])
         let houseTableVC = HousesTableViewController(houseModel: houses)
         
         let houseNavVC = UINavigationController(rootViewController: houseVC)
@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             splitVC.viewControllers = [housesTabNavVC,houseNavVC]
         
         splitVC.delegate = houseVC
-        houseTableVC.tableDelegate = houseVC as? HousesTableViewControllerDelegate
+        houseTableVC.tableDelegate = houseVC
         
         /***********************UISplitViewController***********************************/
         

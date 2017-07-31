@@ -18,6 +18,7 @@ class WikiViewController: UIViewController {
     init(model: House){
         self._model = model
         super.init(nibName: nil, bundle: nil)
+        title = _model.name
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,18 +27,24 @@ class WikiViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.syncViewWithModel()
+        self.syncViewWithModel(houseURL: _model.wikiURL)
+    
+        let center:NotificationCenter = NotificationCenter.default
+        center.addObserver(self, selector: #selector(houseDidChange) , name: NSNotification.Name(rawValue: notificationName), object: nil)
     }
     
-    func syncViewWithModel(){
+    @objc func houseDidChange(notification: Notification) {
         
-        activityView.isHidden = false
-        activityView.startAnimating()
-        title = _model.name
-        browserView.delegate = self
-        browserView.loadRequest(URLRequest(url: _model.wikiURL))
+        let notificationDict = notification.userInfo
         
+        dump( notificationDict![houseKey])
+        
+        if let newHouse = notificationDict![houseKey] as? House {
+            syncViewWithModel(houseURL: newHouse.wikiURL)
+        }
+
     }
+    
     
 }
 
@@ -60,7 +67,18 @@ extension WikiViewController :  UIWebViewDelegate{
     }
 }
 
+extension WikiViewController{
 
+    func syncViewWithModel(houseURL: URL){
+        
+        activityView.isHidden = false
+        activityView.startAnimating()
+        browserView.delegate = self
+        browserView.loadRequest(URLRequest(url: houseURL))
+        
+    }
+
+}
 
 
 

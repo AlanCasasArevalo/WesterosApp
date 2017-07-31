@@ -47,6 +47,15 @@ extension Season {
 }
 
 extension Season{
+    
+    func addEpisode(newEpisode: Episode){
+        _episode.insert(newEpisode)
+    }
+    
+    
+}
+
+extension Season{
     var proxy : String {
         return "\(seasonName) \(releaseDate)"
     }
