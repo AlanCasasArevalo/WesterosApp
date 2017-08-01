@@ -14,7 +14,7 @@ final class Episode {
     
     var title: String
     var releaseDate : Date
-    var season: Season
+    weak var season: Season?
     
     init ( title: String, realeaseDate: Date, season:Season ){
         

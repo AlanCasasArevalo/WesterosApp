@@ -79,16 +79,16 @@ class HouseTests: XCTestCase {
     
     func testAddPersons(){
         
-        XCTAssertEqual(starkHouse.count, 3)
+        XCTAssertEqual(starkHouse.houseCount, 3)
         starkHouse.addPerson (person: robb)
         
-        XCTAssertEqual(starkHouse.count, 3)
+        XCTAssertEqual(starkHouse.houseCount, 3)
         starkHouse.addPerson (person: arya)
         
-        XCTAssertEqual(starkHouse.count, 3)
+        XCTAssertEqual(starkHouse.houseCount, 3)
         
         starkHouse.addPerson(person: tyrion)
-        XCTAssertEqual(starkHouse.count, 3)
+        XCTAssertEqual(starkHouse.houseCount, 3)
         
     }
     
@@ -136,7 +136,6 @@ class HouseTests: XCTestCase {
         XCTAssertNotNil(houseRequired)
         XCTAssertEqual(houseRequired, starkHouse)
     }
-    
     
     func testFailHouseRequired (){
 

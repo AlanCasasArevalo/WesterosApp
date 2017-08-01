@@ -18,31 +18,31 @@ final class Repository {
 //Creamos un protocolo para crear casas
 protocol HouseFactory {
 
-    typealias Filter = (House)->Bool
+    typealias FilterHouse = (House)->Bool
 
     var houses: [House] {get}
     func houseRequired(houseName:String) -> House?
-    func houseFiltered(filteredBy: Filter) -> [House]
+    func houseFiltered(filteredBy: FilterHouse) -> [House]
 
 }
 
 protocol SeasonFactory {
     
-    typealias Filter = (Season)->Bool
+    typealias FilterSeason = (Season)->Bool
     
     var seasons: [Season] {get}
-    func seasonRequired(seasonName:String) -> House?
-    func seasonFiltered(filteredBy: Filter) -> [Episode]
+    func seasonRequired(seasonName:String) -> Season?
+    func seasonFiltered(filteredBy: FilterSeason) -> [Season]
     
 }
 
 
 // Creamos una clase para que nos cree y nos devuelva un array de casas ordenado como lo hayamos hecho en el metodo comparable de House. 
-final class LocalFactory: HouseFactory {
+final class LocalFactory: HouseFactory, SeasonFactory {
     
     func houseFiltered(filteredBy: (House) -> Bool) -> [House] {
-        let filtered = Repository.local.houses.filter(filteredBy)
-        return filtered
+        let houseFilter = Repository.local.houses.filter(filteredBy)
+        return houseFilter
     }
     
     var houses: [House]{
@@ -103,7 +103,6 @@ final class LocalFactory: HouseFactory {
             baratheonHouse.addPerson(person: robert)
             baratheonHouse.addPerson(person: stannis)
             
-           
             return [starkHouse, lannisterHouse, targaryenHouse, baratheonHouse].sorted()
             
         }
@@ -116,10 +115,17 @@ final class LocalFactory: HouseFactory {
         return house
     }
     
+
+    func seasonFiltered(filteredBy: (Season) -> Bool) -> [Season] {
+        let seasonFilter = Repository.local.seasons.filter(filteredBy)
+        return seasonFilter
+    }
+    
     var seasons: [Season] {
+
         //Creamos fechas de salida de temporadas
-        let dateComponentReleaseSeason1 = DateComponents(calendar: .current, year: 2011, month: 04, day: 11)
-        let releaseSeason1 = dateComponentReleaseSeason1.date!
+        let dateComponentReleaseSeason1 = DateComponents(calendar: .current, year: 2011, month: 04, day: 11).date!
+        let releaseSeason1:Date = dateComponentReleaseSeason1
         
         let dateComponentReleaseSeason2 = DateComponents(calendar: .current, year: 2012, month: 04, day: 01)
         let releaseSeason2 = dateComponentReleaseSeason2.date!
@@ -150,92 +156,95 @@ final class LocalFactory: HouseFactory {
         
         //Creamos los episodios que tendran las temporadas
         //Temporada 1
+        
         let episode1Season1 = Episode(title: "Se acerca el invierno", realeaseDate: releaseSeason1, season: season1)
-        let episode2Season1 = Episode(title: "El camino real", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode3Season1 = Episode(title: "Lord Nieve", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode4Season1 = Episode(title: "Tullidos, bastardos y cosas rotas", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode5Season1 = Episode(title: "El lobo y el león", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode6Season1 = Episode(title: "Una corona de oro", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode7Season1 = Episode(title: "Ganas o mueres", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode8Season1 = Episode(title: "Por el lado de la punta", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode9Season1 = Episode(title: "Baelor", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
-        let episode10Season1 = Episode(title: "Fuego y sangre", realeaseDate: releaseSeason1.addDay(dayToAdd: 7), season: season1)
+        let episode2Season1 = Episode(title: "El camino real", realeaseDate: episode1Season1.releaseDate.releaseDate(sinceDate: episode1Season1.releaseDate) , season: season1)
+        let episode3Season1 = Episode(title: "Lord Nieve", realeaseDate: episode2Season1.releaseDate.releaseDate(sinceDate: episode2Season1.releaseDate), season: season1)
+        let episode4Season1 = Episode(title: "Tullidos, bastardos y cosas rotas", realeaseDate:episode3Season1.releaseDate.releaseDate(sinceDate: episode3Season1.releaseDate) , season: season1)
+        let episode5Season1 = Episode(title: "El lobo y el león", realeaseDate: episode4Season1.releaseDate.releaseDate(sinceDate: episode4Season1.releaseDate) , season: season1)
+        let episode6Season1 = Episode(title: "Una corona de oro", realeaseDate: episode5Season1.releaseDate.releaseDate(sinceDate: episode5Season1.releaseDate) , season: season1)
+        let episode7Season1 = Episode(title: "Ganas o mueres", realeaseDate: episode6Season1.releaseDate.releaseDate(sinceDate: episode6Season1.releaseDate), season: season1)
+        let episode8Season1 = Episode(title: "Por el lado de la punta", realeaseDate: episode7Season1.releaseDate.releaseDate(sinceDate: episode7Season1.releaseDate), season: season1)
+        let episode9Season1 = Episode(title: "Baelor", realeaseDate: episode8Season1.releaseDate.releaseDate(sinceDate: episode8Season1.releaseDate) , season: season1)
+        let episode10Season1 = Episode(title: "Fuego y sangre", realeaseDate: episode9Season1.releaseDate.releaseDate(sinceDate: episode9Season1.releaseDate) , season: season1)
         
         //Temporada 2
-        let episode1Season2 = Episode(title: "El norte no olvida", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode2Season2 = Episode(title: "Las tierras de la noche", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode3Season2 = Episode(title: "Lo que está muerto no puede morir", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode4Season2 = Episode(title: "Jardín de huesos", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode5Season2 = Episode(title: "El fantasma de Harrenhal", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode6Season2 = Episode(title: "Los dioses antiguos y nuevos", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode7Season2 = Episode(title: "Un hombre sin honor", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode8Season2 = Episode(title: "Un príncipe de Invernalia", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode9Season2 = Episode(title: "Aguasnegras", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
-        let episode10Season2 = Episode(title: "Valar Morghulis", realeaseDate: releaseSeason2.addDay(dayToAdd: 7), season: season2)
+        let episode1Season2 = Episode(title: "El norte no olvida", realeaseDate: releaseSeason2, season: season2)
+        let episode2Season2 = Episode(title: "Las tierras de la noche", realeaseDate: episode1Season2.releaseDate.releaseDate(sinceDate: episode1Season2.releaseDate), season: season2)
+        let episode3Season2 = Episode(title: "Lo que está muerto no puede morir", realeaseDate: episode2Season2.releaseDate.releaseDate(sinceDate: episode2Season2.releaseDate), season: season2)
+        let episode4Season2 = Episode(title: "Jardín de huesos", realeaseDate: episode3Season2.releaseDate.releaseDate(sinceDate: episode3Season2.releaseDate), season: season2)
+        let episode5Season2 = Episode(title: "El fantasma de Harrenhal", realeaseDate: episode4Season2.releaseDate.releaseDate(sinceDate: episode4Season2.releaseDate), season: season2)
+        let episode6Season2 = Episode(title: "Los dioses antiguos y nuevos", realeaseDate: episode5Season2.releaseDate.releaseDate(sinceDate: episode5Season2.releaseDate), season: season2)
+        let episode7Season2 = Episode(title: "Un hombre sin honor", realeaseDate: episode6Season2.releaseDate.releaseDate(sinceDate: episode6Season2.releaseDate), season: season2)
+        let episode8Season2 = Episode(title: "Un príncipe de Invernalia", realeaseDate: episode7Season2.releaseDate.releaseDate(sinceDate: episode7Season2.releaseDate), season: season2)
+        let episode9Season2 = Episode(title: "Aguasnegras", realeaseDate: episode8Season2.releaseDate.releaseDate(sinceDate: episode8Season2.releaseDate), season: season2)
+        let episode10Season2 = Episode(title: "Valar Morghulis", realeaseDate: episode9Season2.releaseDate.releaseDate(sinceDate: episode9Season2.releaseDate), season: season2)
         
         //Temporada 3
-        let episode1Season3 = Episode(title: "Valar Dohaeris", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode2Season3 = Episode(title: "Alas negras, palabras negras", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode3Season3 = Episode(title: "Camino del castigo", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode4Season3 = Episode(title: "Y ahora su guardia ha terminado", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode5Season3 = Episode(title: "Besado por el fuego", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode6Season3 = Episode(title: "El ascenso", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode7Season3 = Episode(title: "El oso y la doncella", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode8Season3 = Episode(title: "Los Segundos Hijos", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode9Season3 = Episode(title: "Las lluvias de Castamere", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
-        let episode10Season3 = Episode(title: "Mhysa", realeaseDate: releaseSeason3.addDay(dayToAdd: 7), season: season3)
+        let episode1Season3 = Episode(title: "Valar Dohaeris", realeaseDate: releaseSeason3, season: season3)
+        let episode2Season3 = Episode(title: "Alas negras, palabras negras", realeaseDate: episode1Season3.releaseDate.releaseDate(sinceDate: episode1Season3.releaseDate), season: season3)
+        let episode3Season3 = Episode(title: "Camino del castigo", realeaseDate: episode2Season3.releaseDate.releaseDate(sinceDate: episode2Season3.releaseDate), season: season3)
+        let episode4Season3 = Episode(title: "Y ahora su guardia ha terminado", realeaseDate: episode3Season1.releaseDate.releaseDate(sinceDate: episode3Season3.releaseDate), season: season3)
+        let episode5Season3 = Episode(title: "Besado por el fuego", realeaseDate: episode4Season3.releaseDate.releaseDate(sinceDate: episode4Season3.releaseDate), season: season3)
+        let episode6Season3 = Episode(title: "El ascenso", realeaseDate: episode5Season3.releaseDate.releaseDate(sinceDate: episode5Season3.releaseDate), season: season3)
+        let episode7Season3 = Episode(title: "El oso y la doncella", realeaseDate: episode6Season3.releaseDate.releaseDate(sinceDate: episode6Season3.releaseDate), season: season3)
+        let episode8Season3 = Episode(title: "Los Segundos Hijos", realeaseDate: episode7Season3.releaseDate.releaseDate(sinceDate: episode7Season3.releaseDate), season: season3)
+        let episode9Season3 = Episode(title: "Las lluvias de Castamere", realeaseDate: episode8Season3.releaseDate.releaseDate(sinceDate: episode8Season3.releaseDate), season: season3)
+        let episode10Season3 = Episode(title: "Mhysa", realeaseDate: episode9Season3.releaseDate.releaseDate(sinceDate: episode9Season3.releaseDate), season: season3)
         
         //Temporada 4
-        let episode1Season4 = Episode(title: "Dos espadas", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode2Season4 = Episode(title: "El león y la rosapadas", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode3Season4 = Episode(title: "Rompedora de cadenas", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode4Season4 = Episode(title: "Guardajuramentos", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode5Season4 = Episode(title: "Primero de su nombre", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode6Season4 = Episode(title: "Leyes de Dioses y hombres", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode7Season4 = Episode(title: "El sinsonte", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode8Season4 = Episode(title: "La montaña y la víbora", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode9Season4 = Episode(title: "Los guardianes en el muro", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
-        let episode10Season4 = Episode(title: "Los niños", realeaseDate: releaseSeason4.addDay(dayToAdd: 7), season: season4)
+        let episode1Season4 = Episode(title: "Dos espadas", realeaseDate: releaseSeason4, season: season4)
+        let episode2Season4 = Episode(title: "El león y la rosapadas", realeaseDate: episode1Season4.releaseDate.releaseDate(sinceDate: episode1Season4.releaseDate), season: season4)
+        let episode3Season4 = Episode(title: "Rompedora de cadenas", realeaseDate: episode2Season4.releaseDate.releaseDate(sinceDate: episode2Season4.releaseDate), season: season4)
+        let episode4Season4 = Episode(title: "Guardajuramentos", realeaseDate: episode3Season4.releaseDate.releaseDate(sinceDate: episode3Season4.releaseDate), season: season4)
+        let episode5Season4 = Episode(title: "Primero de su nombre", realeaseDate: episode4Season4.releaseDate.releaseDate(sinceDate: episode4Season4.releaseDate), season: season4)
+        let episode6Season4 = Episode(title: "Leyes de Dioses y hombres", realeaseDate: episode5Season4.releaseDate.releaseDate(sinceDate: episode5Season4.releaseDate), season: season4)
+        let episode7Season4 = Episode(title: "El sinsonte", realeaseDate: episode6Season4.releaseDate.releaseDate(sinceDate: episode6Season4.releaseDate), season: season4)
+        let episode8Season4 = Episode(title: "La montaña y la víbora", realeaseDate: episode7Season4.releaseDate.releaseDate(sinceDate: episode7Season4.releaseDate), season: season4)
+        let episode9Season4 = Episode(title: "Los guardianes en el muro", realeaseDate: episode8Season4.releaseDate.releaseDate(sinceDate: episode8Season4.releaseDate), season: season4)
+        let episode10Season4 = Episode(title: "Los niños", realeaseDate: episode9Season4.releaseDate.releaseDate(sinceDate: episode9Season4.releaseDate), season: season4)
         
         //Temporada 5
-        let episode1Season5 = Episode(title: "The Wars to Come", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode2Season5 = Episode(title: "The House of Black and White", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode3Season5 = Episode(title: "High Sparrow", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode4Season5 = Episode(title: "The Sons Of The Harpy", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode5Season5 = Episode(title: " Kill The Boy", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode6Season5 = Episode(title: "Unbowed, Unbent, Unbroken", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode7Season5 = Episode(title: "The Gift", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode8Season5 = Episode(title: "Hardhome", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode9Season5 = Episode(title: "The Dance of Dragons", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
-        let episode10Season5 = Episode(title: "Mother’s Mercy", realeaseDate: releaseSeason5.addDay(dayToAdd: 7), season: season5)
+        let episode1Season5 = Episode(title: "The Wars to Come", realeaseDate: releaseSeason5, season: season5)
+        let episode2Season5 = Episode(title: "The House of Black and White", realeaseDate: episode1Season5.releaseDate.releaseDate(sinceDate: episode1Season5.releaseDate), season: season5)
+        let episode3Season5 = Episode(title: "High Sparrow", realeaseDate: episode2Season5.releaseDate.releaseDate(sinceDate: episode2Season5.releaseDate), season: season5)
+        let episode4Season5 = Episode(title: "The Sons Of The Harpy", realeaseDate: episode3Season5.releaseDate.releaseDate(sinceDate: episode3Season5.releaseDate), season: season5)
+        let episode5Season5 = Episode(title: "Kill The Boy", realeaseDate: episode4Season5.releaseDate.releaseDate(sinceDate: episode4Season5.releaseDate), season: season5)
+        let episode6Season5 = Episode(title: "Unbowed, Unbent, Unbroken", realeaseDate: episode5Season5.releaseDate.releaseDate(sinceDate: episode5Season5.releaseDate), season: season5)
+        let episode7Season5 = Episode(title: "The Gift", realeaseDate: episode6Season5.releaseDate.releaseDate(sinceDate: episode6Season5.releaseDate), season: season5)
+        let episode8Season5 = Episode(title: "Hardhome", realeaseDate: episode7Season5.releaseDate.releaseDate(sinceDate: episode7Season5.releaseDate), season: season5)
+        let episode9Season5 = Episode(title: "The Dance of Dragons", realeaseDate: episode8Season5.releaseDate.releaseDate(sinceDate: episode8Season5.releaseDate), season: season5)
+        let episode10Season5 = Episode(title: "Mother’s Mercy", realeaseDate: episode9Season5.releaseDate.releaseDate(sinceDate: episode9Season5.releaseDate), season: season5)
         
         //Temporada 6
-        let episode1Season6 = Episode(title: "The Red Woman", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode2Season6 = Episode(title: "Home", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode3Season6 = Episode(title: "Oathbreaker", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode4Season6 = Episode(title: "Book of the Stranger", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode5Season6 = Episode(title: " The Door", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode6Season6 = Episode(title: "Blood of My Blood", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode7Season6 = Episode(title: "The Broken Man", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode8Season6 = Episode(title: "No One", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode9Season6 = Episode(title: "Battle of Bastards", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
-        let episode10Season6 = Episode(title: "The Winds of Winter", realeaseDate: releaseSeason6.addDay(dayToAdd: 7), season: season6)
+        let episode1Season6 = Episode(title: "The Red Woman", realeaseDate: releaseSeason6, season: season6)
+        let episode2Season6 = Episode(title: "Home", realeaseDate: episode1Season6.releaseDate.releaseDate(sinceDate: episode1Season6.releaseDate), season: season6)
+        let episode3Season6 = Episode(title: "Oathbreaker", realeaseDate: episode2Season6.releaseDate.releaseDate(sinceDate: episode2Season6.releaseDate), season: season6)
+        let episode4Season6 = Episode(title: "Book of the Stranger", realeaseDate: episode3Season6.releaseDate.releaseDate(sinceDate: episode3Season6.releaseDate), season: season6)
+        let episode5Season6 = Episode(title: "The Door", realeaseDate: episode4Season6.releaseDate.releaseDate(sinceDate: episode4Season6.releaseDate), season: season6)
+        let episode6Season6 = Episode(title: "Blood of My Blood", realeaseDate:episode5Season6.releaseDate.releaseDate(sinceDate: episode5Season6.releaseDate), season: season6)
+        let episode7Season6 = Episode(title: "The Broken Man", realeaseDate: episode6Season6.releaseDate.releaseDate(sinceDate: episode6Season6.releaseDate), season: season6)
+        let episode8Season6 = Episode(title: "No One", realeaseDate: episode7Season6.releaseDate.releaseDate(sinceDate: episode7Season6.releaseDate), season: season6)
+        let episode9Season6 = Episode(title: "Battle of Bastards", realeaseDate: episode8Season6.releaseDate.releaseDate(sinceDate: episode8Season6.releaseDate), season: season6)
+        let episode10Season6 = Episode(title: "The Winds of Winter", realeaseDate: episode9Season6.releaseDate.releaseDate(sinceDate: episode9Season6.releaseDate), season: season6)
         
         //Temporada 7
-        let episode1Season7 = Episode(title: "Dragonstone", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode2Season7 = Episode(title: "Stormborn", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode3Season7 = Episode(title: "The Queen's Justice", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode4Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode5Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode6Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode7Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode8Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode9Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
-        let episode10Season7 = Episode(title: "Episode", realeaseDate: releaseSeason7.addDay(dayToAdd: 7), season: season7)
+        let episode1Season7 = Episode(title: "Dragonstone", realeaseDate: releaseSeason7, season: season7)
+        let episode2Season7 = Episode(title: "Stormborn", realeaseDate: episode1Season7.releaseDate.releaseDate(sinceDate: episode1Season7.releaseDate), season: season7)
+        let episode3Season7 = Episode(title: "The Queen's Justice", realeaseDate: episode2Season7.releaseDate.releaseDate(sinceDate: episode2Season7.releaseDate), season: season7)
+        let episode4Season7 = Episode(title: "Episode", realeaseDate: episode3Season7.releaseDate.releaseDate(sinceDate: episode3Season7.releaseDate), season: season7)
+        let episode5Season7 = Episode(title: "Episode", realeaseDate: episode4Season7.releaseDate.releaseDate(sinceDate: episode4Season7.releaseDate), season: season7)
+        let episode6Season7 = Episode(title: "Episode", realeaseDate: episode5Season7.releaseDate.releaseDate(sinceDate: episode5Season7.releaseDate), season: season7)
+        let episode7Season7 = Episode(title: "Episode", realeaseDate: episode6Season7.releaseDate.releaseDate(sinceDate: episode6Season7.releaseDate), season: season7)
+        let episode8Season7 = Episode(title: "Episode", realeaseDate: episode7Season7.releaseDate.releaseDate(sinceDate: episode7Season7.releaseDate), season: season7)
+        let episode9Season7 = Episode(title: "Episode", realeaseDate: episode8Season7.releaseDate.releaseDate(sinceDate: episode8Season7.releaseDate), season: season7)
+        let episode10Season7 = Episode(title: "Episode", realeaseDate: episode9Season7.releaseDate.releaseDate(sinceDate: episode9Season7.releaseDate), season: season7)
         
         //Agregar los episodios a las temporadas
         season1.addEpisode(newEpisode: episode1Season1)
+        dump(episode1Season1)
         season1.addEpisode(newEpisode: episode2Season1)
+        dump(episode2Season1.releaseDate)
         season1.addEpisode(newEpisode: episode3Season1)
         season1.addEpisode(newEpisode: episode4Season1)
         season1.addEpisode(newEpisode: episode5Season1)
@@ -312,7 +321,16 @@ final class LocalFactory: HouseFactory {
         season7.addEpisode(newEpisode: episode10Season7)
         
         //Devolver temporadas ordenadas .sorted()
-        return  [season1, season2, season3, season4, season5, season6, season7]
+        return  [season1, season2, season3, season4, season5, season6, season7].sorted(by: { (seasonA, seasonB) -> Bool in
+            return seasonA.releaseDate < seasonB.releaseDate
+        })
+    }
+    
+    func seasonRequired(seasonName: String) -> Season? {
+        let season = seasons.filter{
+            $0 .seasonName.uppercased() == seasonName.uppercased()
+            }.first
+        return season
     }
     
 }
@@ -330,13 +348,12 @@ extension LocalFactory {
 }
 
 extension Date{
-    func addDay (dayToAdd: Int) -> Date {
-        
-        return Calendar(identifier: .gregorian).date(byAdding: .day, value: dayToAdd, to: self)!
-        
+    func releaseDate (sinceDate:Date) -> Date{
+        let interval = 604800.0
+        let releaseDate = Date(timeInterval: interval, since: sinceDate)
+        return releaseDate
     }
 }
-
 
 
 

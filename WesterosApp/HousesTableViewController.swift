@@ -68,23 +68,15 @@ class HousesTableViewController: UITableViewController {
         let cellForRow = houseModel[indexPath.row]
         
         //Mostramos la casa
-//        let houseVC = HouseViewController(modelHouse: cellForRow)
-//        navigationController?.pushViewController(houseVC, animated: true)
-//
         tableDelegate?.housesTableViewController(housesVC: self, aHouseModel: cellForRow)
         
         let notification = Notification(name: Notification.Name(rawValue: notificationName),
                                         object: self,
                                         userInfo: [houseKey: cellForRow])
         
-//        dump(cellForRow)
-        
         NotificationCenter.default.post(notification)
         
     }
-    
-
-
     
 }
 

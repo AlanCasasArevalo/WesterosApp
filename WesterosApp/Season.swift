@@ -27,10 +27,19 @@ final class Season {
 }
 
 extension Season {
-    var count :Int {
+    var seasonCount :Int {
         return _episode.count
     }
     
+}
+
+extension Season{
+    func sortedMembers() -> [Episode] {
+        let memberArray: [Episode] = Array (_episode)
+        return memberArray.sorted(by: { (episodeA, episodeB) -> Bool in
+            return episodeA.releaseDate < episodeB.releaseDate
+        })
+    }
 }
 
 extension Season {

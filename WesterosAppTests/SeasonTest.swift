@@ -11,21 +11,54 @@ import XCTest
 
 class SeasonTest: XCTestCase {
     
-    var dateSeason1:Date!
-    var season1:Season!
-
-    var dateSeason2:Date!
-    var season2:Season!
+    var seasonFromRepository = Repository.local.seasons
+    var seasonRequired : Season!
     
+    var season1:Season!
+    var season2:Season!
+    var season3:Season!
+    var season4:Season!
+    var season5:Season!
+    var season6:Season!
+    var season7:Season!
+    
+    
+    var dateComponentReleaseSeason = DateComponents()
+    var releaseSeason: Date!
+    
+    var episode0: Episode!
+    var episode1: Episode!
     
     override func setUp() {
         super.setUp()
         
-        dateSeason1 = Date(timeIntervalSinceNow: 0)
-        season1 = Season(seasonName: "Temporada1", realeaseDate: dateSeason1)
+        for season in seasonFromRepository {
+            
+            switch season.seasonName {
+            case "Temporada 1":
+                season1 = season
+            case "Temporada 2":
+                season2 = season
+            case "Temporada 3":
+                season3 = season
+            case "Temporada 4":
+                season4 = season
+            case "Temporada 5":
+                season5 = season
+            case "Temporada 6":
+                season6 = season
+            case "Temporada 7":
+                season7 = season
+            default:
+                return 
+            }
+        }
         
-        dateSeason2 = Date(timeIntervalSinceNow: 0)
-        season2 = Season(seasonName: "Temporada2", realeaseDate: dateSeason1)
+        dateComponentReleaseSeason = DateComponents(calendar: .current, year: 2011, month: 04, day: 11)
+        releaseSeason = dateComponentReleaseSeason.date!
+        
+        episode0 = Episode(title: "Piloto", realeaseDate: releaseSeason, season: season1)
+        episode1 = Episode(title: "Capitulo 2", realeaseDate: releaseSeason, season: season2)
     }
     
     override func tearDown() {
@@ -36,28 +69,34 @@ class SeasonTest: XCTestCase {
     func testSeasonExistence(){
 
         XCTAssertNotNil(season1)
+        XCTAssertNotNil(season2)
+        XCTAssertNotNil(season3)
+        XCTAssertNotNil(season4)
+        XCTAssertNotNil(season5)
+        XCTAssertNotNil(season6)
+        XCTAssertNotNil(season7)
         
     }
     
     func testAddEpisodeToSeason(){
-        let pilote1 = Episode(title: "piloto", realeaseDate: dateSeason1, season: season1)
-        
+        let pilote1 = Episode(title: "piloto", realeaseDate: releaseSeason, season: season1)
         
         season1.addEpisode(newEpisode: pilote1)
         
-        let pilote2 = Episode(title: "piloto2", realeaseDate: dateSeason2, season: season2)
+        let pilote2 = Episode(title: "piloto2", realeaseDate: releaseSeason, season: season2)
         
-        XCTAssertEqual(season1.count, 1)
+        XCTAssertEqual(season1.seasonCount, 11)
 
         season2.addEpisode(newEpisode: pilote2)
         
-        XCTAssertEqual(season2.count, 1)
+        XCTAssertEqual(season2.seasonCount, 11)
     }
     
     func testSeasonEquality(){
-        
         XCTAssertEqual(season1, season1)
-        
+        let temporada1 = Season(seasonName: "Temporada 1", realeaseDate: releaseSeason)
+        XCTAssertEqual(temporada1, season1)
+        XCTAssertNotEqual(season4, season1)
     }
 
     func testSeasonHashable(){
@@ -65,13 +104,47 @@ class SeasonTest: XCTestCase {
     }
     
     func testSeasonComparable(){
-        
         XCTAssertLessThan(season1, season2)
         XCTAssertGreaterThan(season2, season1)
-        
+    }
+
+    func testSeasonComparison () {
+        XCTAssertTrue(season1 < season2)
     }
     
+    func testSeasonRequired() {
+        seasonRequired = Repository.local.seasonRequired(seasonName: "Temporada 1")
+        XCTAssertNotNil(seasonRequired)
+        XCTAssertEqual(seasonRequired, season1)
+    }
     
+    func testFailSeasonRequired() {
+        seasonRequired = Repository.local.seasonRequired(seasonName: "Temporada")
+        XCTAssertNil(seasonRequired)
+        XCTAssertNotEqual(seasonRequired, season1)
+    }
+
+//    func testHouseRequired (){
+//        
+//        houseRequired = Repository.local.houseRequired(houseName: "Stark")
+//        
+//        print("La casa requerida es: ************")
+//        print(houseRequired.name)
+//        
+//        XCTAssertNotNil(houseRequired)
+//        XCTAssertEqual(houseRequired, starkHouse)
+//    }
+//    
+//    
+//    func testFailHouseRequired (){
+//        
+//        houseRequired = Repository.local.houseRequired(houseName: "Star")
+//        
+//        print("La casa requerida es: ************")
+//        
+//        XCTAssertNil(houseRequired)
+//        XCTAssertNotEqual(houseRequired, starkHouse)
+//    }
 }
 
 

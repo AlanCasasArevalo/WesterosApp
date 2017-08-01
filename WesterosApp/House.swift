@@ -49,7 +49,7 @@ final class House {
 // Extension para comparar casas
 extension House {
     var proxyForEquality:String {
-        return "\(name) \(words) \(count)"
+        return "\(name) \(words) \(houseCount)"
     }
     
     var proxyForComparison:String{
@@ -69,7 +69,7 @@ extension House{
 
 //Extension para que devuelva el numero de miembros de la clase
 extension House{
-    var count : Int{
+    var houseCount : Int{
         return _member.count
     }
 }
