@@ -8,12 +8,14 @@
 
 import UIKit
 
-class EpisodeTableViewController: UITableViewController {
 
-    var episodeModel : [Episode]
+class EpisodeTableViewController: UITableViewController {
+    
+    var episodeModel : Season
+
     let CellID = "EpisodeCell"
     
-    init (episodeModel:[Episode]){
+    init (episodeModel:Season){
         
         self.episodeModel = episodeModel
         super.init(nibName: nil, bundle: nil)
@@ -22,7 +24,6 @@ class EpisodeTableViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,12 +39,14 @@ class EpisodeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return episodeModel.count
+        return episodeModel.seasonCount
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let episodeToCell = episodeModel[indexPath.row]
+        let episodes = episodeModel.sortedMembers()
+        
+        let episodeToCell = episodes[indexPath.row]
         
         var episodeCell = tableView.dequeueReusableCell(withIdentifier: CellID)
 
@@ -57,9 +60,18 @@ class EpisodeTableViewController: UITableViewController {
         return episodeCell!
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let episodes = episodeModel.sortedMembers()
+
+        let cellForRow = episodes[indexPath.row]
+        
+        let episodeVC = EpisodeViewController(episodeModel: cellForRow)
+        navigationController?.pushViewController(episodeVC, animated: true)
+        
+    }
+    
 }
-
-
 
 
 

@@ -114,7 +114,7 @@ class RepositorioTests: XCTestCase {
         XCTAssertEqual(filtered.count, 1)
     }
     
-    func testSeasonFilteringBy (){
+    func testSeasonFilteringBySeasonNameClosure (){
         let filter = Repository.local.seasonFiltered { (season) -> Bool in
             season.seasonName == "Temporada 2"
         }

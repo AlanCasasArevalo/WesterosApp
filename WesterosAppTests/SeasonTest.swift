@@ -124,27 +124,6 @@ class SeasonTest: XCTestCase {
         XCTAssertNotEqual(seasonRequired, season1)
     }
 
-//    func testHouseRequired (){
-//        
-//        houseRequired = Repository.local.houseRequired(houseName: "Stark")
-//        
-//        print("La casa requerida es: ************")
-//        print(houseRequired.name)
-//        
-//        XCTAssertNotNil(houseRequired)
-//        XCTAssertEqual(houseRequired, starkHouse)
-//    }
-//    
-//    
-//    func testFailHouseRequired (){
-//        
-//        houseRequired = Repository.local.houseRequired(houseName: "Star")
-//        
-//        print("La casa requerida es: ************")
-//        
-//        XCTAssertNil(houseRequired)
-//        XCTAssertNotEqual(houseRequired, starkHouse)
-//    }
 }
 
 

@@ -8,16 +8,8 @@
 
 import UIKit
 
-let notificationName = "newHouse"
-let houseKey = "house"
-
-protocol HousesTableViewControllerDelegate {
-    func housesTableViewController(housesVC: HousesTableViewController, aHouseModel: House)
-}
-
 class HousesTableViewController: UITableViewController {
     
-    var tableDelegate:HousesTableViewControllerDelegate?
     
     let cellID = "HouseCellIdentifier"
     var houseModel : [House]
@@ -66,16 +58,9 @@ class HousesTableViewController: UITableViewController {
         
         //Averiguar la casa
         let cellForRow = houseModel[indexPath.row]
-        
-        //Mostramos la casa
-        tableDelegate?.housesTableViewController(housesVC: self, aHouseModel: cellForRow)
-        
-        let notification = Notification(name: Notification.Name(rawValue: notificationName),
-                                        object: self,
-                                        userInfo: [houseKey: cellForRow])
-        
-        NotificationCenter.default.post(notification)
-        
+        let houseVC = HouseViewController(modelHouse: cellForRow)
+        navigationController?.pushViewController(houseVC, animated: true)
+                
     }
     
 }

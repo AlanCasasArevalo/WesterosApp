@@ -33,12 +33,13 @@ protocol SeasonFactory {
     var seasons: [Season] {get}
     func seasonRequired(seasonName:String) -> Season?
     func seasonFiltered(filteredBy: FilterSeason) -> [Season]
-    
+
 }
 
 
 // Creamos una clase para que nos cree y nos devuelva un array de casas ordenado como lo hayamos hecho en el metodo comparable de House. 
 final class LocalFactory: HouseFactory, SeasonFactory {
+    
     
     func houseFiltered(filteredBy: (House) -> Bool) -> [House] {
         let houseFilter = Repository.local.houses.filter(filteredBy)
@@ -120,9 +121,11 @@ final class LocalFactory: HouseFactory, SeasonFactory {
         let seasonFilter = Repository.local.seasons.filter(filteredBy)
         return seasonFilter
     }
-    
+
     var seasons: [Season] {
 
+        
+        
         //Creamos fechas de salida de temporadas
         let dateComponentReleaseSeason1 = DateComponents(calendar: .current, year: 2011, month: 04, day: 11).date!
         let releaseSeason1:Date = dateComponentReleaseSeason1
@@ -242,9 +245,7 @@ final class LocalFactory: HouseFactory, SeasonFactory {
         
         //Agregar los episodios a las temporadas
         season1.addEpisode(newEpisode: episode1Season1)
-        dump(episode1Season1)
         season1.addEpisode(newEpisode: episode2Season1)
-        dump(episode2Season1.releaseDate)
         season1.addEpisode(newEpisode: episode3Season1)
         season1.addEpisode(newEpisode: episode4Season1)
         season1.addEpisode(newEpisode: episode5Season1)
@@ -320,10 +321,12 @@ final class LocalFactory: HouseFactory, SeasonFactory {
         season7.addEpisode(newEpisode: episode9Season7)
         season7.addEpisode(newEpisode: episode10Season7)
         
+        
         //Devolver temporadas ordenadas .sorted()
         return  [season1, season2, season3, season4, season5, season6, season7].sorted(by: { (seasonA, seasonB) -> Bool in
             return seasonA.releaseDate < seasonB.releaseDate
         })
+
     }
     
     func seasonRequired(seasonName: String) -> Season? {
@@ -332,7 +335,17 @@ final class LocalFactory: HouseFactory, SeasonFactory {
             }.first
         return season
     }
-    
+
+    func seasonAtIndex(index: Int) -> Season? {
+        
+        if seasons.count < index || index < 0{
+            return nil
+        }else{
+            return seasons[index]
+        }
+        
+    }
+
 }
 
 extension LocalFactory{
@@ -354,7 +367,6 @@ extension Date{
         return releaseDate
     }
 }
-
 
 
 

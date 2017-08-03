@@ -29,25 +29,11 @@ class WikiViewController: UIViewController {
         super.viewWillAppear(animated)
         self.syncViewWithModel(houseURL: _model.wikiURL)
     
-        let center:NotificationCenter = NotificationCenter.default
-        center.addObserver(self, selector: #selector(houseDidChange) , name: NSNotification.Name(rawValue: notificationName), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        NotificationCenter.default.removeObserver(self)
-        
-    }
-    
-    @objc func houseDidChange(notification: Notification) {
-        
-        let notificationDict = notification.userInfo
-        
-        if let newHouse = notificationDict![houseKey] as? House {
-            syncViewWithModel(houseURL: newHouse.wikiURL)
-        }
-
+                
     }
     
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HouseViewController: UIViewController,UISplitViewControllerDelegate,HousesTableViewControllerDelegate  {
+class HouseViewController: UIViewController,UISplitViewControllerDelegate  {
     
     
     @IBOutlet weak var houseNameView: UILabel!
@@ -57,14 +57,7 @@ class HouseViewController: UIViewController,UISplitViewControllerDelegate,Houses
         
         let members = UIBarButtonItem(title: "Personajes", style: .plain, target: self, action: #selector(displayMembers))
         
-        if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.primaryHidden{
-            navigationItem.rightBarButtonItems = [(self.splitViewController?.displayModeButtonItem)!, wiki, members]
-        }else if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.allVisible{
-            navigationItem.rightBarButtonItems = [(self.splitViewController?.displayModeButtonItem)!, wiki, members]
-        }else{
-            navigationItem.rightBarButtonItems = [wiki,members]
-        }
-        
+        navigationItem.rightBarButtonItems = [wiki,members]
     }
 
     @objc func displayWiki(){
@@ -82,21 +75,6 @@ class HouseViewController: UIViewController,UISplitViewControllerDelegate,Houses
         let membersVC = PersonTableViewController(personModel: modelHouse.sortedMembers())
         navigationController?.pushViewController(membersVC, animated: true)
         
-    }
-
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
-        
-        if self.splitViewController?.displayMode == UISplitViewControllerDisplayMode.primaryHidden{
-            self.navigationItem.rightBarButtonItem = self.splitViewController?.displayModeButtonItem
-        }
-        
-    }
-    
-    func housesTableViewController(housesVC: HousesTableViewController, aHouseModel: House) {
-        self.modelHouse = aHouseModel
-        self.title = aHouseModel.name
-        
-        self.syncViewWithModel()
     }
     
 }

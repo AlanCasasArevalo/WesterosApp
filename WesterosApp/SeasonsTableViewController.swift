@@ -60,10 +60,10 @@ class SeasonsTableViewController: UITableViewController {
         
         let cellForRow = seasonModel[indexPath.row]
         
-        let episodeTableVC = EpisodeTableViewController(episodeModel: cellForRow.sortedMembers())
+        let episodeTableVC = EpisodeTableViewController(episodeModel: cellForRow)
         
         navigationController?.pushViewController(episodeTableVC, animated: true)
-        
+                
     }
     
 }

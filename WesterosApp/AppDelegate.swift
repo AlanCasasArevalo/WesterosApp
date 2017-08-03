@@ -19,46 +19,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         self.window!.backgroundColor = UIColor.cyan
         self.window!.makeKeyAndVisible()
-  
+        
         /*********************** Modelos ***********************************/
         let houses = Repository.local.houses
         let seasons = Repository.local.seasons
 
-        /*********************** UIViewController ***********************************/
-        let houseVC = HouseViewController(modelHouse: houses[0])
-        let episodeVC = EpisodeViewController(episodeModel: seasons[0].sortedMembers()[0])
-        
         /*********************** TableViewController ***********************************/
         let houseTableVC = HousesTableViewController(houseModel: houses)
+        let seasonTableVC = SeasonsTableViewController(seasonModel: seasons)
 
-        let seasonsTableVC = SeasonsTableViewController(seasonModel: seasons)
-
-        
         /*********************** UINavigationController ***********************************/
-        let houseNavigationController = UINavigationController(rootViewController: houseVC)
         let housesTableNavVC = UINavigationController(rootViewController: houseTableVC)
-        
-        let seasonNavigationController = UINavigationController(rootViewController: episodeVC)
-        let seasonsTableNavVC = UINavigationController(rootViewController: seasonsTableVC)
-        
-        /*********************** UISplitViewController ***********************************/
-        let houseSpliVC = UISplitViewController()
-        houseSpliVC.title = "SplitWeteros"
-        houseSpliVC.viewControllers = [housesTableNavVC,houseNavigationController]
-        
-        let seasonSplitVC = UISplitViewController()
-        seasonSplitVC.title = "SplitSeasons"
-        seasonSplitVC.viewControllers = [seasonsTableNavVC, seasonNavigationController]
-        
-        /*********************** UISplitViewControllerDelegate ***********************************/
-        houseSpliVC.delegate = houseVC
-        houseTableVC.tableDelegate = houseVC
+        let seasonsTableNavVC = UINavigationController(rootViewController: seasonTableVC)
         
         /*********************** UITabBarController ***********************************/
         let tabVC = UITabBarController()
-        tabVC.viewControllers = [seasonSplitVC, houseSpliVC]
+        tabVC.viewControllers = [seasonsTableNavVC, housesTableNavVC]
 
-        
         //Hacemos al tab controlador principal.
         window?.rootViewController = tabVC
         return true
