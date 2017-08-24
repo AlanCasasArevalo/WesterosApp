@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="espisodeNameLabel" destination="Dwr-2O-0pB" id="x2w-VX-15y"/>
                 <outlet property="releaseDateLabel" destination="CF2-GH-pXz" id="NJq-10-1Tq"/>
+                <outlet property="tableView" destination="Fkn-KI-T0a" id="bG1-3E-wDx"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,31 +22,39 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GoA-pJ-7PE">
-                    <rect key="frame" x="20" y="313.5" width="335" height="41"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GoA-pJ-7PE" userLabel="MainLabelsStackView">
+                    <rect key="frame" x="0.0" y="70" width="375" height="41"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dwr-2O-0pB">
-                            <rect key="frame" x="0.0" y="0.0" width="335" height="23.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="23.5"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="CF2-GH-pXz">
-                            <rect key="frame" x="0.0" y="23.5" width="335" height="17.5"/>
+                            <rect key="frame" x="0.0" y="23.5" width="375" height="17.5"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                 </stackView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Fkn-KI-T0a">
+                    <rect key="frame" x="0.0" y="121" width="375" height="501"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="GoA-pJ-7PE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="7l9-va-b4g"/>
-                <constraint firstItem="GoA-pJ-7PE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="B3e-0W-ARY"/>
-                <constraint firstItem="GoA-pJ-7PE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lz8-tw-oeQ"/>
-                <constraint firstAttribute="trailing" secondItem="GoA-pJ-7PE" secondAttribute="trailing" constant="20" id="rZ1-ek-TEm"/>
+                <constraint firstAttribute="bottom" secondItem="Fkn-KI-T0a" secondAttribute="bottom" constant="45" id="3U1-de-bkV"/>
+                <constraint firstItem="Fkn-KI-T0a" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7FI-gT-33S"/>
+                <constraint firstAttribute="trailing" secondItem="Fkn-KI-T0a" secondAttribute="trailing" id="B6X-kY-Tb4"/>
+                <constraint firstItem="GoA-pJ-7PE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MsI-6t-T4Y"/>
+                <constraint firstItem="Fkn-KI-T0a" firstAttribute="top" secondItem="GoA-pJ-7PE" secondAttribute="bottom" constant="10" id="T7r-Nn-m6Z"/>
+                <constraint firstItem="GoA-pJ-7PE" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="m6p-FJ-hbj"/>
+                <constraint firstAttribute="trailing" secondItem="GoA-pJ-7PE" secondAttribute="trailing" id="sMd-1X-c9E"/>
             </constraints>
+            <point key="canvasLocation" x="-36" y="8"/>
         </view>
     </objects>
 </document>

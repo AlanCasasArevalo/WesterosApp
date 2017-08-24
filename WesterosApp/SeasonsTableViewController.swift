@@ -50,8 +50,8 @@ class SeasonsTableViewController: UITableViewController {
             seasonCell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)
         }
         
-        seasonCell?.textLabel?.text = seasonToCell.seasonName
-        seasonCell?.detailTextLabel?.text = seasonToCell.releaseDate.formatter(date: seasonToCell.releaseDate)
+        seasonCell?.textLabel?.text = " La \(seasonToCell.seasonName) contiene \(seasonToCell.seasonCount) capitulos "
+        seasonCell?.detailTextLabel?.text = "Se estreno el dia \(String(describing: seasonToCell.releaseDate.formatter(date: seasonToCell.releaseDate)!))"
         
         return seasonCell!
     }

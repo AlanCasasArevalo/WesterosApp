@@ -12,7 +12,6 @@ import UIKit
 typealias Words = String
 typealias Members = Set<Person>
 
-
 //MARK: - ClassesTests
 //Creamos las Clases haciendolas que sean finales (que no se herede de ellas) si tienes que hacer que alguna clase herede de ella le quitas el final.
 final class House {
@@ -66,6 +65,7 @@ extension House{
     }
     
 }
+
 
 //Extension para que devuelva el numero de miembros de la clase
 extension House{

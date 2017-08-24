@@ -12,7 +12,7 @@ import UIKit
 class EpisodeTableViewController: UITableViewController {
     
     var episodeModel : Season
-
+    
     let CellID = "EpisodeCell"
     
     init (episodeModel:Season){
@@ -44,7 +44,7 @@ class EpisodeTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let episodes = episodeModel.sortedMembers()
+        let episodes = episodeModel.sortedEpisodes()
         
         let episodeToCell = episodes[indexPath.row]
         
@@ -55,17 +55,17 @@ class EpisodeTableViewController: UITableViewController {
         }
         
         episodeCell?.textLabel?.text = episodeToCell.title
-        episodeCell?.detailTextLabel?.text = episodeToCell.releaseDate.formatter(date: episodeToCell.releaseDate)
+        episodeCell?.detailTextLabel?.text = "Este capitulo se estrenoel dia: \(String(describing: episodeToCell.releaseDate.formatter(date: episodeToCell.releaseDate)!))"
         
         return episodeCell!
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let episodes = episodeModel.sortedMembers()
+        let episodes = episodeModel.sortedEpisodes()
 
         let cellForRow = episodes[indexPath.row]
-        
+                
         let episodeVC = EpisodeViewController(episodeModel: cellForRow)
         navigationController?.pushViewController(episodeVC, animated: true)
         

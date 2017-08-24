@@ -105,8 +105,23 @@ final class LocalFactory: HouseFactory, SeasonFactory {
             baratheonHouse.addPerson(person: stannis)
             
             return [starkHouse, lannisterHouse, targaryenHouse, baratheonHouse].sorted()
-            
         }
+
+    }
+    
+    func allHousesMembers (houses: [House]) -> [Person]{
+        
+        var allMembers : [Person] = []
+        
+        for house in houses {
+            let houseMembers = house.sortedMembers()
+            for member in houseMembers{
+                
+                allMembers.append(member)
+                
+            }
+        }
+        return allMembers
     }
     
     func houseRequired (houseName: String) -> House?{
@@ -122,9 +137,7 @@ final class LocalFactory: HouseFactory, SeasonFactory {
         return seasonFilter
     }
 
-    var seasons: [Season] {
-
-        
+    var seasons: [Season] {        
         
         //Creamos fechas de salida de temporadas
         let dateComponentReleaseSeason1 = DateComponents(calendar: .current, year: 2011, month: 04, day: 11).date!

@@ -34,9 +34,9 @@ extension Season {
 }
 
 extension Season{
-    func sortedMembers() -> [Episode] {
-        let memberArray: [Episode] = Array (_episode)
-        return memberArray.sorted(by: { (episodeA, episodeB) -> Bool in
+    func sortedEpisodes() -> [Episode] {
+        let episodeArray: [Episode] = Array (_episode)
+        return episodeArray.sorted(by: { (episodeA, episodeB) -> Bool in
             return episodeA.releaseDate < episodeB.releaseDate
         })
     }

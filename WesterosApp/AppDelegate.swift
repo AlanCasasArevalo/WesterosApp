@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         /*********************** Modelos ***********************************/
         let houses = Repository.local.houses
         let seasons = Repository.local.seasons
-
+        
         /*********************** TableViewController ***********************************/
         let houseTableVC = HousesTableViewController(houseModel: houses)
         let seasonTableVC = SeasonsTableViewController(seasonModel: seasons)
