@@ -23,7 +23,7 @@ final class House {
     let wikiURL :URL
     
 //    Creamos una propiedad que sera privada para no ser mostrada a nadie.
-    private var _member: Members
+    var member: Members
     
 //    Creamos el inicializador de la clase
     init(name:String,
@@ -35,7 +35,7 @@ final class House {
         (self.name, self.sigil, self.words, self.wikiURL) = (name, sigil, words, wikiURL)
         
 //        Inicializamos la propiedad _member
-        _member = Members()
+        member = Members()
         
     }
     
@@ -59,7 +59,7 @@ extension House {
 extension House{
     
     func sortedMembers() -> [Person] {
-        let memberArray:[Person] = Array(_member)
+        let memberArray:[Person] = Array(member)
         
         return memberArray.sorted()
     }
@@ -70,7 +70,7 @@ extension House{
 //Extension para que devuelva el numero de miembros de la clase
 extension House{
     var houseCount : Int{
-        return _member.count
+        return member.count
     }
 }
 
@@ -82,7 +82,7 @@ extension House{
             return
         }
         
-        _member.insert(person)
+        member.insert(person)
     }
     
     func addPeople(persons:Person...) {
@@ -98,7 +98,7 @@ extension House {
         
         var nameRequierd:Person?
      
-        for member in _member {
+        for member in member {
             if member.name == name{
                 nameRequierd = member
             }

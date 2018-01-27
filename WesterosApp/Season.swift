@@ -14,13 +14,13 @@ final class Season {
     
     var seasonName : String
     var releaseDate : Date
-    private var _episode : Episodes
+    var episode : Episodes
     
     init ( seasonName: String, realeaseDate: Date ){
         
         (self.seasonName, self.releaseDate ) = ( seasonName, realeaseDate)
     
-        _episode = Episodes()
+        episode = Episodes()
 
     }
     
@@ -28,14 +28,14 @@ final class Season {
 
 extension Season {
     var seasonCount :Int {
-        return _episode.count
+        return episode.count
     }
     
 }
 
 extension Season{
     func sortedEpisodes() -> [Episode] {
-        let episodeArray: [Episode] = Array (_episode)
+        let episodeArray: [Episode] = Array (episode)
         return episodeArray.sorted(by: { (episodeA, episodeB) -> Bool in
             return episodeA.releaseDate < episodeB.releaseDate
         })
@@ -46,7 +46,7 @@ extension Season {
     func episodeReturned(titleRequired :String) -> Episode? {
         var episodeRequire: Episode?
         
-        for episode in _episode{
+        for episode in episode{
             if episode.title == titleRequired{
                 episodeRequire = episode
             }
@@ -58,7 +58,7 @@ extension Season {
 extension Season{
     
     func addEpisode(newEpisode: Episode){
-        _episode.insert(newEpisode)
+        episode.insert(newEpisode)
     }
     
     
